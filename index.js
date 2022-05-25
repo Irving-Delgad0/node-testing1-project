@@ -8,6 +8,11 @@
  */
 function trimProperties(obj) {
   // ✨ implement
+  const newObj = {}
+  Object.entries(obj).forEach(([key, value]) => {
+  newObj[key] = value.trim()
+  })
+  return newObj
 }
 
 /**
@@ -20,6 +25,10 @@ function trimProperties(obj) {
  */
 function trimPropertiesMutation(obj) {
   // ✨ implement
+  Object.entries(obj).forEach(([key, value]) => {
+    obj[key] = value.trim()
+  })
+  return obj
 }
 
 /**
@@ -32,6 +41,13 @@ function trimPropertiesMutation(obj) {
  */
 function findLargestInteger(integers) {
   // ✨ implement
+  let largest = integers[0].integer
+  integers.forEach(({integer}) => {
+    if(integer > largest){
+      largest = integer
+    }
+  })
+  return largest;
 }
 
 class Counter {
@@ -41,6 +57,7 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.counter = initialNumber
   }
 
   /**
@@ -57,8 +74,14 @@ class Counter {
    */
   countDown() {
     // ✨ implement
+    if(this.counter > 0){
+      return this.counter --
+    } else {
+      return 0
+    }
   }
 }
+
 
 class Seasons {
   /**
@@ -66,6 +89,10 @@ class Seasons {
    */
   constructor() {
     // ✨ initialize whatever properties are needed
+    this.counter = 0
+    this.seasons = [
+      'spring','summer', 'fall', 'winter' 
+    ]
   }
 
   /**
@@ -81,8 +108,15 @@ class Seasons {
    * seasons.next() // returns "summer"
    */
   next() {
+    if(this.counter >=3){
+      this.counter = 0
+    } else {
+      this.counter ++
+    }
     // ✨ implement
+    return this.seasons[this.counter]
   }
+  
 }
 
 class Car {
@@ -96,6 +130,9 @@ class Car {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
+    this.name = name,
+    this.mpg = mpg,
+    this.tankSize = tankSize
   }
 
   /**
@@ -113,6 +150,16 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    let availableMiles = this.tank * this.mpg
+    if(distance <= availableMiles){
+      this.odometer = this.odometer + distance
+      this.tank = this.tank - (distance / this.mpg)
+      return this.odometer
+    } else {
+      this.odometer = this.odometer + availableMiles
+      this.tank = 0
+      return this.odometer
+    }
   }
 
   /**
@@ -128,6 +175,12 @@ class Car {
    */
   refuel(gallons) {
     // ✨ implement
+    if(gallons + this.tank > this.tankSize){
+      this.tank = this.tankSize
+    } else {
+      this.tank += gallons
+     }
+     return this.tank * this.mpg
   }
 }
 
@@ -144,9 +197,15 @@ class Car {
  *    // result is false
  * })
  */
-function isEvenNumberAsync(number) {
+async function isEvenNumberAsync(number) {
   // ✨ implement
+  return new Promise ((resolve) => {
+    setTimeout(() => {
+     resolve(number % 2 === 0)
+    })
+  })
 }
+
 
 module.exports = {
   trimProperties,
